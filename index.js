@@ -11,7 +11,13 @@ module.exports = inputs;
 const app = (inputs) => {
   const st = new StringSorter();
   let sortedStr = st.catString(inputs);
-  st.getPrice(sortedStr.noTax);
+
+  for (prop in sortedStr) {
+    if (sortedStr[prop].length !== 0) {
+      let price = st.getPrice(sortedStr[prop]);
+      st.applyTax(price, prop);
+    }
+  }
 };
 
 app(inputs);

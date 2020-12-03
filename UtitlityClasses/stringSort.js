@@ -1,3 +1,5 @@
+const { type } = require("os");
+
 module.exports = class StringSorter {
   catString = (arr) => {
     //loop over input array and check for keywords
@@ -32,7 +34,28 @@ module.exports = class StringSorter {
     arr.forEach((item, i) => {
       arr[i] = item.split("£")[1];
     });
-    console.log(arr);
     return arr;
   };
+
+  applyTax = (arr, prop) => {
+    arr.forEach((no, ind) => {
+      let fl = parseFloat(no);
+      switch (prop) {
+        case "importOnly":
+          arr[ind] = parseFloat((fl / 100) * 5 + fl).toFixed(2);
+          break;
+        case "salesOnly":
+          arr[ind] = parseFloat(fl / 10 + fl).toFixed(2);
+          break;
+        case "importAndSales":
+          arr[ind] = parseFloat((fl / 100) * 10 + fl).toFixed(2);
+          break;
+      }
+    });
+    return arr;
+  };
+
+  getTotals = (arr) => {};
+
+  constructOutput = (original, prices, totals) => {};
 };
