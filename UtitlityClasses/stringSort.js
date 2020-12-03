@@ -31,31 +31,40 @@ module.exports = class StringSorter {
   };
 
   getPrice = (arr) => {
+    //additional DS because arrays are reference type =(
+    let priceArr = [];
     arr.forEach((item, i) => {
-      arr[i] = item.split("£")[1];
+      priceArr[i] = item.split("£")[1];
     });
-    return arr;
+    return priceArr;
   };
 
   applyTax = (arr, prop) => {
+    let taxArr = [];
     arr.forEach((no, ind) => {
       let fl = parseFloat(no);
       switch (prop) {
         case "importOnly":
-          arr[ind] = parseFloat((fl / 100) * 5 + fl).toFixed(2);
+          taxArr[ind] = parseFloat((fl / 100) * 5 + fl).toFixed(2);
           break;
         case "salesOnly":
-          arr[ind] = parseFloat(fl / 10 + fl).toFixed(2);
+          taxArr[ind] = parseFloat(fl / 10 + fl).toFixed(2);
           break;
         case "importAndSales":
-          arr[ind] = parseFloat((fl / 100) * 10 + fl).toFixed(2);
+          taxArr[ind] = parseFloat((fl / 100) * 10 + fl).toFixed(2);
           break;
       }
     });
-    return arr;
+    return taxArr;
   };
 
-  getTotals = (arr) => {};
+  applyNewPrice = (arr, newVal) => {
+    arr.forEach((item, ind) => {
+      arr[ind] = `${item.split("£")[0]}£${newVal[ind]}`;
+    });
+    //return for test
+    return arr;
+  };
 
   constructOutput = (original, prices, totals) => {};
 };
