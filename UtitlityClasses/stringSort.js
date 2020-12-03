@@ -12,11 +12,14 @@ module.exports = class StringSorter {
     const imports = /\b(?:imported)\b/gi;
 
     for (const str of arr) {
-      if (excluded.test(str) && imports.test(str)) {
+      let ex = excluded.test(str);
+      let imp = imports.test(str);
+
+      if (ex && imp) {
         sortedStrs.importOnly.push(str);
-      } else if (!excluded.test(str) && !imports.test(str)) {
+      } else if (!ex && !imp) {
         sortedStrs.salesOnly.push(str);
-      } else if (!excluded.test(str) && imports.test(str)) {
+      } else if (!ex && imp) {
         sortedStrs.importAndSales.push(str);
       } else {
         sortedStrs.noTax.push(str);
@@ -25,5 +28,11 @@ module.exports = class StringSorter {
     return sortedStrs;
   };
 
-  getPrice = () => {};
+  getPrice = (arr) => {
+    arr.forEach((item, i) => {
+      arr[i] = item.split("£")[1];
+    });
+    console.log(arr);
+    return arr;
+  };
 };

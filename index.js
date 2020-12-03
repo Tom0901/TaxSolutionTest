@@ -10,7 +10,8 @@ module.exports = inputs;
 
 const app = (inputs) => {
   const st = new StringSorter();
-  return st.catString(inputs);
+  let sortedStr = st.catString(inputs);
+  st.getPrice(sortedStr.noTax);
 };
 
-console.log(app(inputs));
+app(inputs);
