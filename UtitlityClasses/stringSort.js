@@ -12,8 +12,6 @@ module.exports = class StringSorter {
     const imports = /\b(?:imported)\b/gi;
 
     for (const str of arr) {
-      console.log(str, excluded.test(str), imports.test(str));
-
       if (excluded.test(str) && imports.test(str)) {
         sortedStrs.importOnly.push(str);
       } else if (!excluded.test(str) && !imports.test(str)) {
