@@ -1,13 +1,11 @@
 module.exports = class StringSorter {
   catString = (arr) => {
-    console.log(arr);
     const excluded = /(book)|(chocolate)|(chocolates)|(pills)/,
       imports = /(imported)/;
     let prices = this.getPrice(arr),
       taxArr = [],
       total = 0,
       tTotal = 0;
-    console.log(prices);
     arr.forEach((str, ind) => {
       let ex = excluded.test(str);
       let imp = imports.test(str),
