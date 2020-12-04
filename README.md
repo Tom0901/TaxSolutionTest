@@ -1,7 +1,7 @@
 # TaxSolutionTest
  For a recent application I made UI was given the following test: 
 
-#Sales Tax Developer Test
+# Sales Tax Developer Test
 
 Basic sales tax is applicable at a rate of 10% on all goods, except books, food, and medical products
 that are exempt. Import duty is an additional sales tax applicable on all imported goods at a rate of
@@ -10,7 +10,7 @@ When I purchase items I receive a receipt which lists the name of all the items 
 (including tax), finishing with the total cost of the items, and the total amount of sales taxes paid.
 Write an application that prints out the receipt details for a specified shopping basket.
 
-#Sample input/output
+# Sample input/output
 
 Scenario 1 – Input
 
@@ -52,8 +52,8 @@ Total: £74.68
 On the surface this looked to be a relatively easy problem. I chose to tackle it using Node with Jest for testing and got stuck in. However, it ended up posing some difficult challenges and edge cases. 
  They were: 
  
-*Rounding to the specified factor 
-*No £ sign in the input
+* Rounding to the specified factor 
+* No £ sign in the input
 
 Ultimately, the most difficult thing about this kind of question is the inputs and my solution is by no means perfect, although it does match the outputs specified and is relatively time efficient.
 In an ideal world, I'd have used googles Vision API to read the receipts then have checked the data it gave back against a database that stores keywords to determine the values. This DB side logic
