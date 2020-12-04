@@ -1,28 +1,32 @@
 module.exports = class StringSorter {
   catString = (arr) => {
+    console.log(arr);
     const excluded = /(book)|(chocolate)|(chocolates)|(pills)/,
       imports = /(imported)/;
     let prices = this.getPrice(arr),
       taxArr = [],
       total = 0,
       tTotal = 0;
+    console.log(prices);
     arr.forEach((str, ind) => {
       let ex = excluded.test(str);
       let imp = imports.test(str),
         fl = parseFloat(prices[ind]);
-      console.log(ex, imp);
       //calculate tax and categorise str
       if (ex && imp) {
-        taxArr[ind] = parseFloat((fl / 100) * 5 + fl).toFixed(2);
+        let calcTax = (Math.round((fl / 100) * 5 * 20) / 20).toFixed(2);
+        taxArr[ind] = fl + parseFloat(calcTax);
       } else if (!ex && !imp) {
-        taxArr[ind] = parseFloat((fl / 100) * 10 + fl).toFixed(2);
+        let calcTax = (Math.round((fl / 100) * 10 * 20) / 20).toFixed(2);
+        taxArr[ind] = fl + parseFloat(calcTax);
       } else if (!ex && imp) {
-        taxArr[ind] = parseFloat((fl / 100) * 15 + fl).toFixed(2);
+        let calcTax = (Math.round((fl / 100) * 15 * 20) / 20).toFixed(2);
+        taxArr[ind] = fl + parseFloat(calcTax);
       } else {
         taxArr[ind] = fl;
       }
       //apply prices
-      arr = this.applyNewPrice(arr, taxArr);
+      arr = this.applyNewPrice(arr, taxArr, ind);
       let tFloat = parseFloat(taxArr[ind]);
       //get totals
       if (total === 0) total = tFloat;
@@ -32,11 +36,10 @@ module.exports = class StringSorter {
         tTotal += tFloat - fl;
       }
     });
-    return [
-      arr,
-      `Sales Taxes: £${tTotal.toFixed(2)}`,
-      `Total: £${total.toFixed(2)}`,
-    ];
+    //round totals.
+    total = total.toFixed(2);
+    tTotal = (Math.round(tTotal * 20) / 20).toFixed(2);
+    return [arr, `Sales Taxes: £${tTotal}`, `Total: £${total}`];
   };
 
   getPrice = (arr) => {
@@ -47,10 +50,10 @@ module.exports = class StringSorter {
     return priceArr;
   };
 
-  applyNewPrice = (arr, newVal) => {
-    arr.forEach((item, ind) => {
-      arr[ind] = `${item.split("£")[0]}£${newVal[ind]}`;
-    });
+  applyNewPrice = (arr, newVal, ind) => {
+    //round val
+    newVal[ind] = newVal[ind].toFixed(2);
+    arr[ind] = `${arr[ind].split("£")[0]}£${newVal[ind]}`;
     //return for test
     return arr;
   };
