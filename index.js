@@ -22,4 +22,4 @@ const app = (inputs) => {
   console.log("My outputs:", outputs);
 };
 
-app(testCase2);
+app(testCase3);
