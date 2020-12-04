@@ -1,23 +1,23 @@
 module.exports = class StringSorter {
   catString = (arr) => {
-    const excluded = /\b(?:book|chocolate|chocolates|pills)\b/gi,
-      imports = /\b(?:imported)\b/gi;
+    const excluded = /(book)|(chocolate)|(chocolates)|(pills)/,
+      imports = /(imported)/;
     let prices = this.getPrice(arr),
       taxArr = [],
       total = 0,
       tTotal = 0;
     arr.forEach((str, ind) => {
-      let ex = excluded.test(str),
-        imp = imports.test(str),
+      let ex = excluded.test(str);
+      let imp = imports.test(str),
         fl = parseFloat(prices[ind]);
       console.log(ex, imp);
       //calculate tax and categorise str
       if (ex && imp) {
         taxArr[ind] = parseFloat((fl / 100) * 5 + fl).toFixed(2);
       } else if (!ex && !imp) {
-        taxArr[ind] = parseFloat((fl / 100) * 15 + fl).toFixed(2);
+        taxArr[ind] = parseFloat((fl / 100) * 10 + fl).toFixed(2);
       } else if (!ex && imp) {
-        taxArr[ind] = parseFloat(fl / 10 + fl).toFixed(2);
+        taxArr[ind] = parseFloat((fl / 100) * 15 + fl).toFixed(2);
       } else {
         taxArr[ind] = fl;
       }
